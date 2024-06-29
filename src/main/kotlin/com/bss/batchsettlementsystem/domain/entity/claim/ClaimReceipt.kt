@@ -10,7 +10,9 @@ import java.time.ZonedDateTime
 
 @Entity
 data class ClaimReceipt(
-    @Id @Column(name = "claim_receipt_id") val id : Long,
+    @Id
+    @Column(name = "claim_receipt_id")
+    val id : Long,
     val orderId: Long,
 
     val createdAt: ZonedDateTime? = ZonedDateTime.now(),

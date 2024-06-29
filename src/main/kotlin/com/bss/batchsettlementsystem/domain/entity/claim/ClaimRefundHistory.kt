@@ -10,9 +10,6 @@ import java.time.ZonedDateTime
 data class ClaimRefundHistory(
     @Id @Column(name = "claim_refund_id") val id : Long,
     val claimReceiptId: Long,
-    val createdAt: ZonedDateTime? = ZonedDateTime.now(),
-    val updatedAt: ZonedDateTime? = ZonedDateTime.now(),
-    val deletedAt: ZonedDateTime? = null,
 
     val refundedAt: ZonedDateTime? = null, //환불시간
 
@@ -22,4 +19,8 @@ data class ClaimRefundHistory(
     val refundMileageAmount: BigDecimal = BigDecimal.ZERO,
     val subtractDeliveryAmount: BigDecimal = BigDecimal.ZERO,
     val refundDeliveryAmount: BigDecimal = BigDecimal.ZERO,
+
+    val createdAt: ZonedDateTime? = ZonedDateTime.now(),
+    val updatedAt: ZonedDateTime? = ZonedDateTime.now(),
+    val deletedAt: ZonedDateTime? = null,
 )

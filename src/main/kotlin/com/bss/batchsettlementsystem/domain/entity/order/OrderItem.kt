@@ -21,4 +21,8 @@ data class OrderItem(
 
         val purchaseConfirmedAt: ZonedDateTime? = null, //구매확정일
         val shippedCompleteAt: ZonedDateTime? = null, //배송완료일
+
+        @OneToOne
+        @JoinColumn(name = "order_item_snapshot_id", insertable = false, updatable = false)
+        val orderItemSnapshot: OrderItemSnapshot
 )

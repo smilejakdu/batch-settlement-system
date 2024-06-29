@@ -1,5 +1,8 @@
 package com.bss.batchsettlementsystem.core.job.purchaseconfirmed
 
+import com.bss.batchsettlementsystem.core.job.purchaseconfirmed.daily.DailySettlementItemProcessor
+import com.bss.batchsettlementsystem.core.job.purchaseconfirmed.daily.DailySettlementItemWriter
+import com.bss.batchsettlementsystem.core.job.purchaseconfirmed.delivery.PurchaseConfirmedWriter
 import com.bss.batchsettlementsystem.core.listener.PurchaseConfirmedChunkListener
 import com.bss.batchsettlementsystem.domain.entity.claim.ClaimItem
 import com.bss.batchsettlementsystem.domain.entity.order.OrderItem
@@ -48,15 +51,6 @@ class PurchaseConfirmedJobConfig(
     val chunkSize = 500
 
     @Bean
-    fun purchaseConfirmedJob(): Job {
-        return JobBuilder(JOB_NAME, jobRepository)
-                .start(purchaseConfirmedJobStep())
-                .next(dailySettlementJobStep())
-                .next(claimSettlementJobStep())
-                .build()
-    }
-
-    @Bean
     @JobScope
     fun purchaseConfirmedJobStep(): Step {
         return StepBuilder(JOB_NAME+"_step", jobRepository)
@@ -93,28 +87,5 @@ class PurchaseConfirmedJobConfig(
     @Bean
     fun dailySettlementItemWriter(): DailySettlementItemWriter {
         return DailySettlementItemWriter(settlementDailyRepository)
-    }
-
-
-    @Bean
-    @JobScope
-    fun claimSettlementJobStep(): Step {
-        return StepBuilder(JOB_NAME+"_claimSettlement_step", jobRepository)
-            .chunk<ClaimItem, SettlementDaily>(chunkSize, transactionManager)
-            .reader(claimSettlementJpaItemReader)
-            .processor(claimSettlementItemProcessor())
-            .writer(claimSettlementItemWriter())
-            .allowStartIfComplete(true)
-            .build()
-    }
-
-    @Bean
-    fun claimSettlementItemProcessor(): ClaimSettlementItemProcessor {
-        return ClaimSettlementItemProcessor()
-    }
-
-    @Bean
-    fun claimSettlementItemWriter(): ClaimSettlementItemWriter {
-        return ClaimSettlementItemWriter(settlementDailyRepository)
     }
 }
