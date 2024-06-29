@@ -1,5 +1,6 @@
-package com.settlement.fastcampussettlementkotlin.domain.entity.claim
+package com.bss.batchsettlementsystem.domain.entity.claim
 
+import com.bss.batchsettlementsystem.domain.enums.*
 import jakarta.persistence.Convert
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

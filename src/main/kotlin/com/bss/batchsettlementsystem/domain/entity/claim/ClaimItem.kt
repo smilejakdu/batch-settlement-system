@@ -1,7 +1,6 @@
 package com.bss.batchsettlementsystem.domain.entity.claim
 
 import com.bss.batchsettlementsystem.domain.entity.order.OrderItem
-import com.settlement.fastcampussettlementkotlin.domain.entity.claim.ClaimReceipt
 import jakarta.persistence.*
 import java.time.ZonedDateTime
 
